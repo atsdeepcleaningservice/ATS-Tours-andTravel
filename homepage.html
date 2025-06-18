@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Tours & Travel - Professional Cab & Travel Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header & Navigation */
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e74c3c;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #e74c3c;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Booking Section */
+        .booking-section {
+            background: #f8f9fa;
+            padding: 4rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .booking-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-top: -100px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .booking-tabs {
+            display: flex;
+            background: #e74c3c;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            background: transparent;
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .tab-btn.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .tab-content {
+            padding: 2rem;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        /* About Section */
+        .about-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #c0392b;
+        }
+
+        /* Fleet Section */
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .fleet-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .fleet-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .fleet-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .fleet-card-content {
+            padding: 1.5rem;
+        }
+
+        .fleet-card h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .fleet-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Packages Section */
+        .packages-slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .packages-track {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .package-card {
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-right: 1rem;
+            overflow: hidden;
+        }
+
+        .package-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .package-card-content {
+            padding: 1.5rem;
+        }
+
+        .package-card h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .package-price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .slider-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.3s;
+        }
+
+        .slider-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .testimonial-card p {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        /* Routes Section */
+        .routes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .route-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .route-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #e74c3c;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #e74c3c;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-tabs {
+                flex-direction: column;
+            }
+
+            .packages-track {
+                flex-direction: column;
+            }
+
+            .package-card {
+                min-width: 100%;
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+      /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25d366;
+            color: white;
+            border-radius: 50px;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+        }   
+    </style>
+</head>
+<body>
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/917033381141" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i> Book Now
+    </a>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">ATS Tours & Travel</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#fleet">Fleet</a></li>
+                <li><a href="#packages">Packages</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Professional Cab & Travel Services in Dhanbad</h1>
+        <p>Experience comfortable and reliable transportation with ATS Tours & Travel</p>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="booking-section">
+        <div class="container">
+            <div class="booking-card">
+                <div class="booking-tabs">
+                    <button class="tab-btn active" data-tab="outstation">Outstation</button>
+                    <button class="tab-btn" data-tab="local">Local Taxi</button>
+                    <button class="tab-btn" data-tab="tour">Book Tour</button>
+                </div>
+                
+                <div class="tab-content active" id="outstation">
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="oneway" name="triptype" value="oneway" checked>
+                            <label for="oneway">One Way</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="roundtrip" name="triptype" value="roundtrip">
+                            <label for="roundtrip">Round Trip</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="pickup">Pickup Location</label>
+                            <input type="text" id="pickup" placeholder="Enter pickup location">
+                        </div>
+                        <div class="form-group">
+                            <label for="drop">Drop Location</label>
+                            <input type="text" id="drop" placeholder="Enter drop location">
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date">
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Time</label>
+                            <input type="time" id="time">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="Enter phone number">
+                        </div>
+                    </div>
+                    <button class="search-btn">Search Cabs</button>
+                </div>
+                
+                <div class="tab-content" id="local">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="local-pickup">Pickup Location</label>
+                            <input type="text" id="local-pickup" placeholder="Enter pickup location">
+                        </div>
+                        <div class="form-group">
+                            <label for="local-date">Date</label>
+                            <input type="date" id="local-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="local-time">Time</label>
+                            <input type="time" id="local-time">
+                        </div>
+                        <div class="form-group">
+                            <label for="local-phone">Phone Number</label>
+                            <input type="tel" id="local-phone" placeholder="Enter phone number">
+                        </div>
+                    </div>
+                    <button class="search-btn">Book Local Taxi</button>
+                </div>
+                
+                <div class="tab-content" id="tour">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="tour-package">Select Package</label>
+                            <select id="tour-package">
+                                <option>Choose a tour package</option>
+                                <option>Golden Triangle Tour</option>
+                                <option>Rajasthan Tour</option>
+                                <option>Kerala Backwaters</option>
+                                <option>Himachal Tour</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tour-date">Date</label>
+                            <input type="date" id="tour-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="tour-people">Number of People</label>
+                            <input type="number" id="tour-people" min="1" placeholder="Number of travelers">
+                        </div>
+                        <div class="form-group">
+                            <label for="tour-phone">Phone Number</label>
+                            <input type="tel" id="tour-phone" placeholder="Enter phone number">
+                        </div>
+                    </div>
+                    <button class="search-btn">Book Tour</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <p>Since 2015, ATS Tours & Travel has delivered safe, punctual cab services. We are committed to providing exceptional transportation solutions with a fleet of well-maintained vehicles and professional drivers.</p>
+                <a href="#" class="btn">Know More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fleet Section -->
+    <section class="section" id="fleet" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Our Fleet</h2>
+            <div class="fleet-grid">
+                <div class="fleet-card">
+                    <img src="inova.jpeg" alt="Innova Crysta">
+                    <div class="fleet-card-content">
+                     <div class="fleet-card-content"></div>
+                        <h3>Innova Crysta</h3>
+                        <p>Spacious and comfortable SUV perfect for family trips and long journeys.</p>
+                        <span class="package-price">₹12/km</span>
+                    </div>
+                </div>
+                <div class="fleet-card">
+                    <img src="sedan.webp" alt="Sedan">
+                    <div class="fleet-card-content">
+                        <h3>Sedan</h3>
+                        <p>Elegant and fuel-efficient cars ideal for business trips and city travel.</p>
+                        <span class="package-price">₹8/km</span>
+                    </div>
+                </div>
+                <div class="fleet-card">
+                    <img src="tempo.jpg" alt="Tempo Traveller">
+                    <div class="fleet-card-content">
+                        <h3>Tempo Traveller</h3>
+                        <p>Large capacity vehicle perfect for group tours and family gatherings.</p>
+                        <span class="package-price">₹18/km</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <a href="fleet.html" class="btn">View All Vehicles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section class="section" id="packages">
+        <div class="container">
+            <h2 class="section-title">Trending Packages</h2>
+            <div class="packages-slider">
+                <div class="packages-track" id="packagesTrack">
+                    <div class="package-card">
+                        <img src="3-days-golden-triangle-tour-package.webp" alt="Golden Triangle">
+                        <div class="package-card-content">
+                            <h3>Golden Triangle Tour</h3>
+                            <p>Delhi - Agra - Jaipur</p>
+                            <div class="package-price">₹15,000</div>
+                        </div>
+                    </div>
+                    <div class="package-card">
+                        <img src="Jal_Mahal.jpg" alt="Rajasthan Tour">
+                        <div class="package-card-content">
+                            <h3>Rajasthan Heritage Tour</h3>
+                            <p>Jaipur - Udaipur - Jodhpur</p>
+                            <div class="package-price">₹25,000</div>
+                        </div>
+                    </div>
+                    <div class="package-card">
+                        <img src="kerala.jpg" alt="Kerala Backwaters">
+                        <div class="package-card-content">
+                            <h3>Kerala Backwaters</h3>
+                            <p>Kochi - Alleppey - Munnar</p>
+                            <div class="package-price">₹20,000</div>
+                        </div>
+                    </div>
+                    <div class="package-card">
+                        <img src="himachal.jpg" alt="Himachal Tour">
+                        <div class="package-card-content">
+                            <h3>Himachal Adventure</h3>
+                            <p>Shimla - Manali - Dharamshala</p>
+                            <div class="package-price">₹18,000</div>
+                        </div>
+                    </div>
+                    <div class="package-card">
+                        <img src="goa.jpg" alt="Goa Beach">
+                        <div class="package-card-content">
+                            <h3>Goa Beach Holiday</h3>
+                            <p>North Goa - South Goa</p>
+                            <div class="package-price">₹12,000</div>
+                        </div>
+                    </div>
+                    <div class="package-card">
+                        <img src="ladakh.jpg" alt="Ladakh Expedition">
+                        <div class="package-card-content">
+                            <h3>Ladakh Expedition</h3>
+                            <p>Leh - Nubra Valley - Pangong</p>
+                            <div class="package-price">₹35,000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="slider-btn" id="prevBtn">‹</button>
+                <button class="slider-btn" id="nextBtn">›</button>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="pack.html" class="btn">View All Packages</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Customer Testimonials</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"Excellent service! The driver was punctual and the car was clean. Highly recommended for outstation trips."</p>
+                    <div class="testimonial-author">- Rajesh Kumar</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Professional and reliable service. Used their services multiple times and always satisfied."</p>
+                    <div class="testimonial-author">- Priya Sharma</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Great experience with ATS Tours. The Golden Triangle tour was well organized and memorable."</p>
+                    <div class="testimonial-author">- Amit Patel</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Affordable prices and excellent customer service. Will definitely use their services again."</p>
+                    <div class="testimonial-author">- Sneha Gupta</div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#" class="btn">View All Testimonials</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Routes Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Popular Routes</h2>
+            <div class="routes-grid">
+                <div class="route-card">Delhi ⇄ Agra</div>
+                <div class="route-card">Mumbai ⇄ Pune</div>
+                <div class="route-card">Bangalore ⇄ Mysore</div>
+                <div class="route-card">Chennai ⇄ Pondicherry</div>
+                <div class="route-card">Jaipur ⇄ Udaipur</div>
+                <div class="route-card">Kolkata ⇄ Darjeeling</div>
+                <div class="route-card">Delhi ⇄ Jaipur</div>
+                <div class="route-card">Mumbai ⇄ Goa</div>
+                <div class="route-card">Delhi ⇄ Shimla</div>
+                <div class="route-card">Ahmedabad ⇄ Udaipur</div>
+                <div class="route-card">Hyderabad ⇄ Tirupati</div>
+                <div class="route-card">Pune ⇄ Mahabaleshwar</div>
+                <div class="route-card">Delhi ⇄ Haridwar</div>
+                <div class="route-card">Mumbai ⇄ Shirdi</div>
+                <div class="route-card">Bangalore ⇄ Ooty</div>
+                <div class="route-card">Chennai ⇄ Mahabalipuram</div>
+                <div class="route-card">Jaipur ⇄ Jodhpur</div>
+                <div class="route-card">Delhi ⇄ Manali</div>
+                <div class="route-card">Mumbai ⇄ Nashik</div>
+                <div class="route-card">Kolkata ⇄ Digha</div>
+                <div class="route-card">Bangalore ⇄ Coorg</div>
+                <div class="route-card">Delhi ⇄ Rishikesh</div>
+                <div class="route-card">Chennai ⇄ Kodaikanal</div>
+                <div class="route-card">Pune ⇄ Lonavala</div>
+                <div class="route-card">Jaipur ⇄ Pushkar</div>
+                <div class="route-card">Mumbai ⇄ Alibaug</div>
+                <div class="route-card">Delhi ⇄ Mathura</div>
+                <div class="route-card">Hyderabad ⇄ Warangal</div>
+                <div class="route-card">Bangalore ⇄ Hampi</div>
+                <div class="route-card">Chennai ⇄ Kanchipuram</div>
+                <div class="route-card">Kolkata ⇄ Shantiniketan</div>
+                <div class="route-card">Delhi ⇄ Dehradun</div>
+                <div class="route-card">Mumbai ⇄ Aurangabad</div>
+                <div class="route-card">Pune ⇄ Shirdi</div>
+                <div class="route-card">Jaipur ⇄ Ajmer</div>
+                <div class="route-card">Ahmedabad ⇄ Mount Abu</div>
+                <div class="route-card">Bangalore ⇄ Chikmagalur</div>
+                <div class="route-card">Chennai ⇄ Vellore</div>
+                <div class="route-card">Delhi ⇄ Vrindavan</div>
+                <div class="route-card">Mumbai ⇄ Kolhapur</div>
+                <div class="route-card">Hyderabad ⇄ Vijayawada</div>
+                <div class="route-card">Kolkata ⇄ Puri</div>
+                <div class="route-card">Jaipur ⇄ Bikaner</div>
+                <div class="route-card">Delhi ⇄ Chandigarh</div>
+                <div class="route-card">Mumbai ⇄ Mahabaleshwar</div>
+                <div class="route-card">Bangalore ⇄ Wayanad</div>
+                <div class="route-card">Chennai ⇄ Thanjavur</div>
+                <div class="route-card">Pune ⇄ Goa</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ATS Tours & Travel</h3>
+                <p>Your trusted partner for safe and comfortable travel experiences since 2015. We provide professional cab services and tour packages across India.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#fleet">Our Fleet</a>
+                <a href="#packages">Tour Packages</a>
+                <a href="#contact">Contact</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>📞 +91 70333 81141</p>
+                
+                <p>✉️ mrarbazkhan806@gmail.com</p>
+                <p>📍 Solution Point Panderpala, Dhanbad - 828130</p>
+                
+                <div class="social-icons">
+                    <a href="#" title="Facebook">f</a>
+                    <a href="https://www.instagram.com/mrarbaz9188?igsh=d2I0eDA4aGs5M2t5&utm_source=qr" title="Instagram">📷</a>
+                    <a href="#" title="Twitter">🐦</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 ATS Tours & Travel. All rights reserved. | Designed with ❤️ for better travel experiences.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Tab switching functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                // Remove active classes
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active classes
+                btn.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Package slider functionality
+        const packagesTrack = document.getElementById('packagesTrack');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const packageCards = document.querySelectorAll('.package-card');
+        
+        let currentSlide = 0;
+        const totalSlides = packageCards.length;
+        const cardWidth = 316; // 300px width + 16px margin
+        const visibleCards = window.innerWidth > 768 ? 3 : 1;
+        const maxSlide = totalSlides - visibleCards;
+
+        function updateSlider() {
+            const translateX = -currentSlide * cardWidth;
+            packagesTrack.style.transform = `translateX(${translateX}px)`;
+        }
+
+        function nextSlide() {
+            currentSlide = currentSlide >= maxSlide ? 0 : currentSlide + 1;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentSlide = currentSlide <= 0 ? maxSlide : currentSlide - 1;
+            updateSlider();
+        }
+
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Auto-slide every 3 seconds
+        let autoSlideInterval = setInterval(nextSlide, 3000);
+
+        // Pause auto-slide on hover
+        const packagesSlider = document.querySelector('.packages-slider');
+        packagesSlider.addEventListener('mouseenter', () => {
+            clearInterval(autoSlideInterval);
+        });
+
+        packagesSlider.addEventListener('mouseleave', () => {
+            autoSlideInterval = setInterval(nextSlide, 3000);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission handlers
+        document.querySelectorAll('.search-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const activeTab = document.querySelector('.tab-content.active');
+                const inputs = activeTab.querySelectorAll('input, select');
+                let isValid = true;
+                
+                inputs.forEach(input => {
+                    if (input.hasAttribute('required') && !input.value) {
+                        isValid = false;
+                        input.style.borderColor = '#e74c3c';
+                    } else {
+                        input.style.borderColor = '#ddd';
+                    }
+                });
+                
+                if (isValid) {
+                    alert('Thank you for your booking request! We will contact you shortly.');
+                } else {
+                    alert('Please fill in all required fields.');
+                }
+            });
+        });
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.querySelectorAll('input[type="date"]').forEach(input => {
+            input.setAttribute('min', today);
+        });
+
+        // Responsive slider adjustment
+        window.addEventListener('resize', () => {
+            const newVisibleCards = window.innerWidth > 768 ? 3 : 1;
+            const newMaxSlide = totalSlides - newVisibleCards;
+            
+            if (currentSlide > newMaxSlide) {
+                currentSlide = newMaxSlide;
+                updateSlider();
+            }
+        });
+
+        // Add loading animation to buttons
+        document.querySelectorAll('.btn, .search-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const originalText = this.textContent;
+                this.style.opacity = '0.7';
+                this.textContent = 'Loading...';
+                
+                setTimeout(() => {
+                    this.style.opacity = '1';
+                    this.textContent = originalText;
+                }, 1000);
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = '#fff';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.fleet-card, .testimonial-card, .package-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script> 
+</body>
+</html>

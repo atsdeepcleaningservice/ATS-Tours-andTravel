@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Vehicles - ATS Tour and Travel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            margin: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .vehicles-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .filter-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .vehicles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .vehicle-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .vehicle-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .vehicle-card:hover .vehicle-image {
+            transform: scale(1.1);
+        }
+
+        .vehicle-info {
+            padding: 1.5rem;
+        }
+
+        .vehicle-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .vehicle-category {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .vehicle-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .spec-icon {
+            width: 16px;
+            height: 16px;
+            fill: #667eea;
+        }
+
+        .vehicle-price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 1rem 0;
+        }
+
+        .book-btn {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .vehicles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">ATS Tour & Travel</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="homepage.html">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#vehicles">Vehicles</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <h1>Our Premium Fleet</h1>
+        <p>Choose from our extensive collection of well-maintained vehicles for your perfect journey. From luxury cars to spacious buses, we have the right vehicle for every occasion.</p>
+    </section>
+
+    <div class="vehicles-container">
+        <div class="filter-section">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Vehicles</button>
+                <button class="filter-btn" data-filter="car">Cars</button>
+                <button class="filter-btn" data-filter="suv">SUVs</button>
+                <button class="filter-btn" data-filter="bus">Buses</button>
+                <button class="filter-btn" data-filter="luxury">Luxury</button>
+            </div>
+        </div>
+
+        <div class="vehicles-grid" id="vehiclesGrid">
+            <!-- Cars -->
+            <div class="vehicle-card" data-category="car">
+                <img src="toyato coroola.jpeg" alt="Toyota Corolla" class="vehicle-image">
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name">Toyota Corolla</h3>
+                    <span class="vehicle-category">Sedan</span>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
+                            4 Seats
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2Z"/></svg>
+                            AC
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            Auto
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M3,3H21V5H19V19A2,2 0 0,1 17,21H7A2,2 0 0,1 5,19V5H3V3M7,5V19H17V5H7Z"/></svg>
+                            3 Bags
+                        </div>
+                    </div>
+                    <div class="vehicle-price">₹7,500/day</div>
+                    <button class="book-btn" onclick="bookVehicle('Mercedes E-Class')">Book Now</button>
+                </div>
+            </div>
+
+            <!-- More vehicles -->
+            <div class="vehicle-card" data-category="car">
+                <img src="new-all-new-swift-front.jpg" alt="Maruti Swift" class="vehicle-image">
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name">Maruti Swift</h3>
+                    <span class="vehicle-category">Hatchback</span>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
+                            4 Seats
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2Z"/></svg>
+                            AC
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            Manual
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M3,3H21V5H19V19A2,2 0 0,1 17,21H7A2,2 0 0,1 5,19V5H3V3M7,5V19H17V5H7Z"/></svg>
+                            2 Bags
+                        </div>
+                    </div>
+                    <div class="vehicle-price">₹1,800/day</div>
+                    <button class="book-btn" onclick="bookVehicle('Maruti Swift')">Book Now</button>
+                </div>
+            </div>
+
+            <div class="vehicle-card" data-category="suv">
+                <img src="creta-1.webp" alt="Hyundai Creta" class="vehicle-image">
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name">Hyundai Creta</h3>
+                    <span class="vehicle-category">Compact SUV</span>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
+                            5 Seats
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2Z"/></svg>
+                            AC
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            Auto
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M3,3H21V5H19V19A2,2 0 0,1 17,21H7A2,2 0 0,1 5,19V5H3V3M7,5V19H17V5H7Z"/></svg>
+                            3 Bags
+                        </div>
+                    </div>
+                    <div class="vehicle-price">₹3,200/day</div>
+                    <button class="book-btn" onclick="bookVehicle('Hyundai Creta')">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const vehicleCards = document.querySelectorAll('.vehicle-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                vehicleCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        }, 100);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Book vehicle function
+        function bookVehicle(vehicleName) {
+            alert(`Thank you for your interest in ${vehicleName}! You can complete your booking via whatsapp or call thank you .`);
+            // Here you can add actual booking functionality like:
+            // - Opening a booking form modal
+            // - Redirecting to a booking page
+            // - Making an API call to initiate booking
+        }
+
+        // Smooth animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe vehicle cards for scroll animations
+        vehicleCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            const heroSection = document.querySelector('.hero-section');
+            heroSection.style.opacity = '0';
+            heroSection.style.transform = 'translateY(-20px)';
+            heroSection.style.transition = 'opacity 1s ease, transform 1s ease';
+            
+            setTimeout(() => {
+                heroSection.style.opacity = '1';
+                heroSection.style.transform = 'translateY(0)';
+            }, 200);
+        });
+    </script>
+</body>
+</html>
+
+            <div class="vehicle-card" data-category="car">
+                <img src="honda city.avif" alt="Honda City" class="vehicle-image">
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name">Honda City</h3>
+                    <span class="vehicle-category">Sedan</span>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
+                            4 Seats
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2Z"/></svg>
+                            AC
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            Manual
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M3,3H21V5H19V19A2,2 0 0,1 17,21H7A2,2 0 0,1 5,19V5H3V3M7,5V19H17V5H7Z"/></svg>
+                            2 Bags
+                        </div>
+                    </div>
+                    <div class="vehicle-price">₹2,200/day</div>
+                    <button class="book-btn" onclick="bookVehicle('Honda City')">Book Now</button>
+                </div>
+            </div>
+
+            <!-- SUVs -->
+            <div class="vehicle-card" data-category="suv">
+                <img src="fortuner.avif" alt="Toyota Fortuner" class="vehicle-image">
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name">Toyota Fortuner</h3>
+                    <span class="vehicle-category">SUV</span>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
+                            7 Seats
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2Z"/></svg>
+                            AC
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            Auto
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M3,3H21V5H19V19A2,2 0 0,1 17,21H7A2,2 0 0,1 5,19V5H3V3M7,5V19H17V5H7Z"/></svg>
+                            4 Bags
+                        </div>
+                    </div>
+                    <div class="vehicle-price">₹4,500/day</div>
+                    <button class="book-btn" onclick="bookVehicle('Toyota Fortuner')">Book Now</button>
+                </div>
+            </div>
+
+            <div class="vehicle-card" data-category="suv">
+                <img src="scorpio.avif" alt="Mahindra Scorpio" class="vehicle-image">
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name">Mahindra Scorpio</h3>
+                    <span class="vehicle-category">SUV</span>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
+                            8 Seats
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2Z"/></svg>
+                            AC
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            Manual
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M3,3H21V5H19V19A2,2 0 0,1 17,21H7A2,2 0 0,1 5,19V5H3V3M7,5V19H17V5H7Z"/></svg>
+                            5 Bags
+                        </div>
+                    </div>
+                    <div class="vehicle-price">₹3,800/day</div>
+                    <button class="book-btn" onclick="bookVehicle('Mahindra Scorpio')">Book Now</button>
+                </div>
+            </div>
+
+            <!-- Buses -->
+            <div class="vehicle-card" data-category="bus">
+                <img src="mini bus.jpg" alt="Mini Bus" class="vehicle-image">
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name">Mini Bus</h3>
+                    <span class="vehicle-category">Bus</span>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
+                            20 Seats
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2Z"/></svg>
+                            AC
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            Manual
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M3,3H21V5H19V19A2,2 0 0,1 17,21H7A2,2 0 0,1 5,19V5H3V3M7,5V19H17V5H7Z"/></svg>
+                            15 Bags
+                        </div>
+                    </div>
+                    <div class="vehicle-price">₹8,000/day</div>
+                    <button class="book-btn" onclick="bookVehicle('Mini Bus')">Book Now</button>
+                </div>
+            </div>
+
+            <div class="vehicle-card" data-category="bus">
+                <img src="bus.jpeg" alt="Luxury Coach" class="vehicle-image">
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name">Luxury Coach</h3>
+                    <span class="vehicle-category">Bus</span>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
+                            35 Seats
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2Z"/></svg>
+                            AC
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            Auto
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M3,3H21V5H19V19A2,2 0 0,1 17,21H7A2,2 0 0,1 5,19V5H3V3M7,5V19H17V5H7Z"/></svg>
+                            25 Bags
+                        </div>
+                    </div>
+                    <div class="vehicle-price">₹12,000/day</div>
+                    <button class="book-btn" onclick="bookVehicle('Luxury Coach')">Book Now</button>
+                </div>
+            </div>
+
+            <!-- Luxury Vehicles -->
+            <div class="vehicle-card" data-category="luxury">
+                <img src="bmw3.avif" alt="BMW 3 Series" class="vehicle-image">
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name">BMW 3 Series</h3>
+                    <span class="vehicle-category">Luxury</span>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
+                            4 Seats
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2Z"/></svg>
+                            AC
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            Auto
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M3,3H21V5H19V19A2,2 0 0,1 17,21H7A2,2 0 0,1 5,19V5H3V3M7,5V19H17V5H7Z"/></svg>
+                            3 Bags
+                        </div>
+                    </div>
+                    <div class="vehicle-price">₹6,500/day</div>
+                    <button class="book-btn" onclick="bookVehicle('BMW 3 Series')">Book Now</button>
+                </div>
+            </div>
+
+            <div class="vehicle-card" data-category="luxury">
+                <img src="mercedes.jpeg" alt="Mercedes E-Class" class="vehicle-image">
+                <div class="vehicle-info">
+                    <h3 class="vehicle-name">Mercedes E-Class</h3>
+                    <span class="vehicle-category">Luxury</span>
+                    <div class="vehicle-specs">
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
+                            4 Seats
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A7,7 0 0,1 19,9C19,14.25 12,22 12,22C12,22 5,14.25 5,9A7,7 0 0,1 12,2Z"/></svg>
+                            AC
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            Auto
+                        </div>
+                        <div class="spec-item">
+                            <svg class="spec-icon" viewBox="0 0 24 24"><path d="M3,3H21V5H19V19A2,2 0 0,1 17,21H7A2,2 0 0,1 5,19V5H3V3M7,5V19H17V5H7Z"/></svg>
+                            3 Bags
+                        </div>
+                    </div>
+                    <div class="vehicle-price">₹6,500/day</div>
+                    <button class="book-btn" onclick="bookVehicle('BMW 3 Series')">Book Now</button>
+                </div>
+            </div>
+</body>
+</html>

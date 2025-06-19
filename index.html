@@ -949,13 +949,13 @@
         prevBtn.addEventListener('click', prevSlide);
 
         // Auto-slide every 3 seconds
-        let autoSlideInterval = setInterval(nextSlide, 3000);
+       // let autoSlideInterval = setInterval(nextSlide, 3000);
 
         // Pause auto-slide on hover
-        const packagesSlider = document.querySelector('.packages-slider');
-        packagesSlider.addEventListener('mouseenter', () => {
-            clearInterval(autoSlideInterval);
-        });
+      //  const packagesSlider = document.querySelector('.packages-slider');
+      //  packagesSlider.addEventListener('mouseenter', () => {
+      //      clearInterval(autoSlideInterval);
+     //   });
 
         packagesSlider.addEventListener('mouseleave', () => {
             autoSlideInterval = setInterval(nextSlide, 3000);
